@@ -7,6 +7,9 @@ public class Biker {
         PlacesAPIRequestManager placesAPI = new PlacesAPIRequestManager();
         placesAPI.sendGoogleAPIRequest("Winnipeg");
 
+
+
+
         System.out.println("End of Processing.");
     }
 }
