@@ -6,7 +6,7 @@ import com.biker.api.APIRequestManager;
 
 public class BikerAPIRequestManager extends APIRequestManager {
 
-    private final String BIKER_API_URL = "http://localhost:5000/";
+    private final String BIKER_API_URL = "http://10.0.2.2:5000/";
     private String key; //TODO: Implement client verification using API_KEYS stored in Redis?
 
     public BikerAPIRequestManager(){
