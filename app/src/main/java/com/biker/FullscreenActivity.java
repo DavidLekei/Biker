@@ -1,4 +1,4 @@
-package com.example.biker;
+package com.biker;
 
 import android.annotation.SuppressLint;
 
@@ -10,7 +10,8 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.biker.src.BikerCLI;
+import com.example.biker.R;
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

@@ -1,6 +1,6 @@
-package com.example.biker.src.API.GoogleAPI;
+package com.biker.api.GoogleAPI;
 
-import com.example.biker.src.API.APIRequestManager;
+import com.biker.api.APIRequestManager;
 
 public class PlacesAPIRequestManager extends APIRequestManager {
 

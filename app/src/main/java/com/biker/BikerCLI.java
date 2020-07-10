@@ -1,9 +1,9 @@
-package com.example.biker.src;
+package com.biker;
 
 import android.os.AsyncTask;
 
-import com.example.biker.src.API.BikerAPI.BikerAPIRequestManager;
-import com.example.biker.src.API.GoogleAPI.PlacesAPIRequestManager;
+import com.biker.api.BikerAPI.BikerAPIRequestManager;
+import com.biker.api.GoogleAPI.PlacesAPIRequestManager;
 
 public class BikerCLI extends AsyncTask<String, String, String> {
 

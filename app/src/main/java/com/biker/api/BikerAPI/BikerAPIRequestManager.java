@@ -1,8 +1,8 @@
-package com.example.biker.src.API.BikerAPI;
+package com.biker.api.BikerAPI;
 
 import java.security.InvalidParameterException;
 
-import com.example.biker.src.API.APIRequestManager;
+import com.biker.api.APIRequestManager;
 
 public class BikerAPIRequestManager extends APIRequestManager {
 

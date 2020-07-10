@@ -1,4 +1,4 @@
-package com.example.biker.src.API.BikerAPI;
+package com.biker.api.BikerAPI;
 
 public class Route {
 

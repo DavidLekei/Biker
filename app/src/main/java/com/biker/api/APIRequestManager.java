@@ -1,4 +1,4 @@
-package com.example.biker.src.API;
+package com.biker.api;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +27,7 @@ public abstract class APIRequestManager {
         }
     }
 
-    private InputStream getConnectionStream(String requestDest) throws MalformedURLException, IOException{
+    private InputStream getConnectionStream(String requestDest) throws IOException{
         URLConnection connection = new URL(requestDest).openConnection();
         return connection.getInputStream();
     }
