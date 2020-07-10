@@ -1,9 +1,17 @@
-import API.BikerAPI.BikerAPIRequestManager;
-import API.GoogleAPI.PlacesAPIRequestManager;
+package com.example.biker.src;
 
-public class Biker {
+import android.os.AsyncTask;
 
-    public static void main(String[] args){
+import com.example.biker.src.API.BikerAPI.BikerAPIRequestManager;
+import com.example.biker.src.API.GoogleAPI.PlacesAPIRequestManager;
+
+public class BikerCLI extends AsyncTask<String, String, String> {
+
+    public BikerCLI(){}
+
+
+    @Override
+    protected String doInBackground(String... strings){
 
         PlacesAPIRequestManager placesAPI = new PlacesAPIRequestManager();
         BikerAPIRequestManager bikerAPI = new BikerAPIRequestManager();
@@ -19,6 +27,6 @@ public class Biker {
 
 
 
-        System.out.println("End of Processing.");
+        return("End of Processing.");
     }
 }
