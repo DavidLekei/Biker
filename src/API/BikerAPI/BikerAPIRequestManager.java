@@ -2,9 +2,11 @@ package API.BikerAPI;
 
 import java.security.InvalidParameterException;
 
-public class BikerAPIRequestManager {
+import API.APIRequestManager;
 
-    private final String BIKER_API_URL = "localhost:5000/";
+public class BikerAPIRequestManager extends APIRequestManager {
+
+    private final String BIKER_API_URL = "http://localhost:5000/";
     private String key; //TODO: Implement client verification using API_KEYS stored in Redis?
 
     public BikerAPIRequestManager(){
@@ -13,6 +15,9 @@ public class BikerAPIRequestManager {
 
     //locationID is provided by the Google Places API. It will be used by the Server to build a route.
     public Route getBasicRoute(String locationID) throws InvalidParameterException, NullPointerException{
+
+        Route route;
+        String requestParams;
 
         //TODO: Implement custom Exception types.
         if(locationID == null){
@@ -23,14 +28,16 @@ public class BikerAPIRequestManager {
         }
 
 
-        Route route = new Route("TODO");
-        sendBikerAPIRequest(locationID);
+        route = new Route("TODO");
+        requestParams = "getBasicRoute?location=" + locationID;
+
+        sendBikerAPIRequest(requestParams);
 
         return route;
     }
 
-    private void sendBikerAPIRequest(String locationID){
-
+    private void sendBikerAPIRequest(String requestParams){
+        super.sendAPIRequest(BIKER_API_URL, requestParams);
     }
 
 }

@@ -14,6 +14,10 @@ public abstract class APIRequestManager {
 
         try{
             InputStream urlInputStream = getConnectionStream(API_URL + requestParams);
+            scanner = new Scanner(urlInputStream);
+            String responseBody = scanner.useDelimiter("\\A").next();
+            System.out.println("Response Body Test: " );
+            System.out.println(responseBody);
         }
         catch(MalformedURLException m){
             m.printStackTrace();

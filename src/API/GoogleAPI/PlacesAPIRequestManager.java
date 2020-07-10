@@ -21,21 +21,22 @@ public class PlacesAPIRequestManager extends APIRequestManager {
     public void sendGoogleAPIRequest(String input){
         String requestParams = "json?key=" + this.key + "&input=" + input + "&inputtype=textquery";
 
-        Scanner scanner;
-
-        try {
-            InputStream urlInputStream = getConnectionStream(requestParams);
-            scanner = new Scanner(urlInputStream);
-            String responseBody = scanner.useDelimiter("\\A").next();
-            System.out.println("Response Body: ");
-            System.out.println(responseBody);
-        }
-        catch(MalformedURLException m){ //TODO: Better exception handling
-            m.printStackTrace();
-        }
-        catch(IOException e){ //TODO: Better exception handling
-            e.printStackTrace();
-        }
+        super.sendAPIRequest(GOOGLE_PLACES_API_URL, requestParams);
+//        Scanner scanner;
+//
+//        try {
+//            InputStream urlInputStream = getConnectionStream(requestParams);
+//            scanner = new Scanner(urlInputStream);
+//            String responseBody = scanner.useDelimiter("\\A").next();
+//            System.out.println("Response Body: ");
+//            System.out.println(responseBody);
+//        }
+//        catch(MalformedURLException m){ //TODO: Better exception handling
+//            m.printStackTrace();
+//        }
+//        catch(IOException e){ //TODO: Better exception handling
+//            e.printStackTrace();
+//        }
     }
 
 
