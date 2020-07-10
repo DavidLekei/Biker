@@ -1,4 +1,4 @@
-package GoogleAPI;
+package API.GoogleAPI;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +7,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
-public class PlacesAPIRequestManager {
+import API.APIRequestManager;
+
+public class PlacesAPIRequestManager extends APIRequestManager {
 
     private final String GOOGLE_PLACES_API_URL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/";
     private String key;

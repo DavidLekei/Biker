@@ -1,4 +1,4 @@
-import GoogleAPI.PlacesAPIRequestManager;
+import API.GoogleAPI.PlacesAPIRequestManager;
 
 public class Biker {
 

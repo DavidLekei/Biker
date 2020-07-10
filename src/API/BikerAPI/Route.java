@@ -1,4 +1,4 @@
-package BikerAPI;
+package API.BikerAPI;
 
 public class Route {
 
