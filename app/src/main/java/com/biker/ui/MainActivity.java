@@ -9,9 +9,11 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.biker.BikerTask;
 import com.biker.api.Callbacks.LocationFailureCallback;
 import com.biker.api.Callbacks.LocationSuccessCallback;
 import com.example.biker.R;
@@ -27,17 +29,27 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 public class MainActivity extends AppCompatActivity {
 
     private SupportMapFragment mapFragment;
     private FusedLocationProviderClient client;
+    private CompletableFuture<Location> locationFuture;
+    private Location currentLocation;
+    private AsyncTask bikerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.locationFuture = new CompletableFuture<>();
         createMap();
+        bikerTask = new BikerTask(locationFuture);
+        bikerTask.execute();
     }
 
     private void createMap(){
@@ -52,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(hasPermission()){
             getLocation = client.getLastLocation();
-            getLocation.addOnSuccessListener(this, new LocationSuccessCallback(mapFragment));
+            getLocation.addOnSuccessListener(this, new LocationSuccessCallback(mapFragment, locationFuture));
             getLocation.addOnFailureListener(this, new LocationFailureCallback());
         }
         else{

@@ -12,18 +12,23 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.concurrent.CompletableFuture;
+
 public class LocationSuccessCallback implements OnSuccessListener<Location> {
 
     private SupportMapFragment mapFragment;
+    private CompletableFuture<Location> locationFuture;
 
-    public LocationSuccessCallback(SupportMapFragment mapFragment){
+    public LocationSuccessCallback(SupportMapFragment mapFragment, CompletableFuture<Location> locationFuture){
         super();
         this.mapFragment = mapFragment;
+        this.locationFuture = locationFuture;
     }
 
     @Override
     public void onSuccess(final Location location) {
         if(location != null){
+            locationFuture.complete(location);
             mapFragment.getMapAsync(new MapReadyCallback(location));
         }
         else{
