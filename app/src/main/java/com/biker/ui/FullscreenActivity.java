@@ -1,4 +1,4 @@
-package com.biker;
+package com.biker.ui;
 
 import android.annotation.SuppressLint;
 
@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.biker.BikerCLI;
 import com.example.biker.R;
 
 
@@ -92,7 +93,7 @@ public class FullscreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BikerCLI cli = new BikerCLI();
+        BikerCLI cli = new BikerCLI(this);
         cli.execute();
 
         setContentView(R.layout.activity_fullscreen);

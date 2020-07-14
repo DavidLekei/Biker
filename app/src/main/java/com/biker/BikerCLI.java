@@ -1,17 +1,30 @@
 package com.biker;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.biker.api.BikerAPI.BikerAPIRequestManager;
 import com.biker.api.GoogleAPI.PlacesAPIRequestManager;
+import com.biker.api.LocationAPI.BikerLocationManager;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 public class BikerCLI extends AsyncTask<String, String, String> {
 
-    public BikerCLI(){}
+    private FusedLocationProviderClient fusedLocationClient;
+    private Context mainContext;
+
+    public BikerCLI(Context context){
+        this.mainContext = context;
+    }
 
 
     @Override
     protected String doInBackground(String... strings){
+
+
+        BikerLocationManager locationManager = new BikerLocationManager(mainContext);
+        locationManager.getCurrentLocation();
 
         PlacesAPIRequestManager placesAPI = new PlacesAPIRequestManager();
         BikerAPIRequestManager bikerAPI = new BikerAPIRequestManager();
@@ -28,5 +41,9 @@ public class BikerCLI extends AsyncTask<String, String, String> {
 
 
         return("End of Processing.");
+    }
+
+    private Context getContext(){
+        return this.mainContext;
     }
 }
