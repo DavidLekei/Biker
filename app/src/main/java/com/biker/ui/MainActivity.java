@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.biker.BikerTask;
 import com.biker.api.BikerAPI.BikerAPIRequestManager;
+import com.biker.api.BikerAPI.Route;
 import com.biker.api.Callbacks.LocationFailureCallback;
 import com.biker.api.Callbacks.LocationSuccessCallback;
 import com.biker.api.GoogleAPI.PlacesAPIRequestManager;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private AsyncTask bikerTask;
     private PlacesAPIRequestManager placesAPI;
     private BikerAPIRequestManager bikerAPI;
+    private Route route;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +53,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.locationFuture = new CompletableFuture<>();
-        this.placesAPI = new PlacesAPIRequestManager();
-        this.bikerAPI = new BikerAPIRequestManager();
+        this.route = null;
+
         createMap();
-        bikerTask = new BikerTask(locationFuture, placesAPI, bikerAPI);
-        bikerTask.execute();
+
+//        //TODO: call buildRoute() on button press.
+//        try {
+//            currentLocation = locationFuture.get();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        buildRoute(locationFuture);
     }
 
     private void createMap(){
@@ -95,6 +105,25 @@ public class MainActivity extends AppCompatActivity {
 
     public SupportMapFragment getMapFragment(){
         return this.mapFragment;
+    }
+
+    //TODO: Change return type to Route and have this method return a Route object which will then be drawn on the map.
+    private void buildRoute(CompletableFuture locationFuture) {
+
+        this.placesAPI = new PlacesAPIRequestManager();
+        this.bikerAPI = new BikerAPIRequestManager();
+        bikerTask = new BikerTask(this, locationFuture, placesAPI, bikerAPI);
+        bikerTask.execute();
+    }
+
+    public void drawRoute(Route route){
+        if(route == null){
+            System.out.println("Route set to NULL");
+            //TODO: Throw exception
+        }
+        else{
+            System.out.println("Drawing Route on Google Map");
+        }
     }
 
 }
