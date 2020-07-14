@@ -14,8 +14,10 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.biker.BikerTask;
+import com.biker.api.BikerAPI.BikerAPIRequestManager;
 import com.biker.api.Callbacks.LocationFailureCallback;
 import com.biker.api.Callbacks.LocationSuccessCallback;
+import com.biker.api.GoogleAPI.PlacesAPIRequestManager;
 import com.example.biker.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private CompletableFuture<Location> locationFuture;
     private Location currentLocation;
     private AsyncTask bikerTask;
+    private PlacesAPIRequestManager placesAPI;
+    private BikerAPIRequestManager bikerAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.locationFuture = new CompletableFuture<>();
+        this.placesAPI = new PlacesAPIRequestManager();
+        this.bikerAPI = new BikerAPIRequestManager();
         createMap();
-        bikerTask = new BikerTask(locationFuture);
+        bikerTask = new BikerTask(locationFuture, placesAPI, bikerAPI);
         bikerTask.execute();
     }
 

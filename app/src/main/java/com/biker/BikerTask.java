@@ -12,9 +12,15 @@ import java.util.concurrent.ExecutionException;
 public class BikerTask extends AsyncTask<Object, Integer, Location> {
 
     private CompletableFuture<Location> locationFuture;
+    private PlacesAPIRequestManager placesAPI;
+    private BikerAPIRequestManager bikerAPI;
 
-    public BikerTask(CompletableFuture<Location> locationFuture){
+    public BikerTask(CompletableFuture<Location> locationFuture,
+                     PlacesAPIRequestManager placesAPI,
+                     BikerAPIRequestManager bikerAPI){
         this.locationFuture = locationFuture;
+        this.placesAPI = placesAPI;
+        this.bikerAPI = bikerAPI;
     }
 
 
@@ -33,8 +39,6 @@ public class BikerTask extends AsyncTask<Object, Integer, Location> {
             ie.printStackTrace();
         }
 
-        PlacesAPIRequestManager placesAPI = new PlacesAPIRequestManager();
-        BikerAPIRequestManager bikerAPI = new BikerAPIRequestManager();
 
         System.out.println("----------------- SENDING GOOGLE API REQUEST TEST -------------");
         placesAPI.sendGoogleAPIRequest("Winnipeg");
