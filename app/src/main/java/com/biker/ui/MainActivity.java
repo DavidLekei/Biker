@@ -58,16 +58,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createMap(){
+        System.out.println("Creating Map...");
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         getCurrentLocation();
     }
 
     private void getCurrentLocation(){
+        System.out.println("Getting Current Location...");
         Task<Location> getLocation;
 
         client = LocationServices.getFusedLocationProviderClient(MainActivity.this);
 
+
         if(hasPermission()){
+            System.out.println("App Has Permission!");
             getLocation = client.getLastLocation();
             getLocation.addOnSuccessListener(this, new LocationSuccessCallback(mapFragment, locationFuture));
             getLocation.addOnFailureListener(this, new LocationFailureCallback());
@@ -112,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             System.out.println("Drawing Route on Google Map");
+            //TODO: Remove this test print statement.
+            System.out.println(route.getStartingLocation());
         }
     }
 

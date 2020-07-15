@@ -12,11 +12,13 @@ def home():
 
 @api_server.route("/getBasicRoute", methods=['GET'])
 def getBasicRoute():
-	location = request.args.get('location')
-	if(location == None):
-		return "ERROR: No Location Parameter", status.HTTP_400_BAD_REQUEST
-	else:
-		return "OK", status.HTTP_200_OK
+	#location = request.args.get('location')
+	latitude = request.args.get('latitude')
+	longitude = request.args.get('longitude')
+	# if(location == None):
+	# 	return "ERROR: No Location Parameter", status.HTTP_400_BAD_REQUEST
+	# else:
+	return "OK", status.HTTP_200_OK
 
 
 if __name__ == "__main__":

@@ -2,13 +2,19 @@ package com.biker.api.BikerAPI;
 
 public class Route {
 
-    private String data;
+    private String startingLocation;
 
-    public Route(String data){
-        this.data = data;
+    public Route(){}
+
+    public Route(String startingLocation){
+        this.startingLocation = startingLocation;
     }
 
-    public String getData(){
-        return this.data;
+    public String getStartingLocation(){
+        return this.startingLocation;
+    }
+
+    public void setStartingLocation(String startingLocation){
+        this.startingLocation = startingLocation;
     }
 }

@@ -29,6 +29,7 @@ public class LocationSuccessCallback implements OnSuccessListener<Location> {
     public void onSuccess(final Location location) {
         if(location != null){
             locationFuture.complete(location);
+            System.out.println("Recieved Location!!");
             mapFragment.getMapAsync(new MapReadyCallback(location));
         }
         else{

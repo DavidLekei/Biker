@@ -1,8 +1,14 @@
 package com.biker.api.BikerAPI;
 
+import android.location.Location;
+
 import java.security.InvalidParameterException;
 
 import com.biker.api.APIRequestManager;
+import com.biker.api.LocationAPI.LocationJSONConverter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class BikerAPIRequestManager extends APIRequestManager {
 
@@ -14,30 +20,29 @@ public class BikerAPIRequestManager extends APIRequestManager {
     }
 
     //locationID is provided by the Google Places API. It will be used by the Server to build a route.
-    public Route getBasicRoute(String latlng) throws InvalidParameterException, NullPointerException{
+    public JSONObject getBasicRoute(Location location) throws InvalidParameterException, NullPointerException, JSONException {
 
-        Route route;
+        JSONObject route;
         String requestParams;
+        String latlng;
 
         //TODO: Implement custom Exception types.
-        if(latlng == null){
+        if(location == null){
             throw new NullPointerException();
         }
-        if(latlng == ""){
-            throw new InvalidParameterException();
-        }
 
 
-        route = new Route("TODO");
+        //route = new Route("TODO");
+        latlng = new LocationJSONConverter().locationToParamString(location);
         requestParams = "getBasicRoute?" + latlng;
 
-        sendBikerAPIRequest(requestParams);
+        route = sendBikerAPIRequest(requestParams);
 
         return route;
     }
 
-    private void sendBikerAPIRequest(String requestParams){
-        super.sendAPIRequest(BIKER_API_URL, requestParams);
+    private JSONObject sendBikerAPIRequest(String requestParams) throws JSONException {
+        return new JSONObject(super.sendAPIRequest(BIKER_API_URL, requestParams));
     }
 
 }

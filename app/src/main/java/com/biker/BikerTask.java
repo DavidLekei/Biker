@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import com.biker.api.BikerAPI.BikerAPIRequestManager;
 import com.biker.api.BikerAPI.Route;
+import com.biker.api.BikerAPI.RouteBuilder;
 import com.biker.api.GoogleAPI.PlacesAPIRequestManager;
 import com.biker.api.LocationAPI.LocationJSONConverter;
 import com.biker.ui.MainActivity;
@@ -47,10 +48,8 @@ public class BikerTask extends AsyncTask<Object, Integer, Route> {
         try {
             Location location = (Location)locationFuture.get();
             System.out.println("*******Location recieved: " + location.toString() + " ***********");
-            route = getRoute(converter.locationToParamString(location));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+            route = getRoute(location);
+        } catch (ExecutionException | InterruptedException | JSONException e) {
             e.printStackTrace();
         }
         //System.out.println("*******Location recieved: " + locations[0].toString() + " ***********");
@@ -68,9 +67,9 @@ public class BikerTask extends AsyncTask<Object, Integer, Route> {
         activity.drawRoute(route);
     }
 
-    private Route getRoute(String requestParams){
-        Route route = bikerAPI.getBasicRoute(requestParams);
-        return null;
+    private Route getRoute(Location location) throws JSONException {
+        Route route = RouteBuilder.buildRoute(bikerAPI.getBasicRoute(location));
+        return route;
     }
 
 }

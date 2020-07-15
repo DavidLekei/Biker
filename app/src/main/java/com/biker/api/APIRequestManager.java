@@ -9,15 +9,14 @@ import java.util.Scanner;
 
 public abstract class APIRequestManager {
 
-    public void sendAPIRequest(String API_URL, String requestParams){
+    public String sendAPIRequest(String API_URL, String requestParams){
         Scanner scanner;
 
         try{
             InputStream urlInputStream = getConnectionStream(API_URL + requestParams);
             scanner = new Scanner(urlInputStream);
             String responseBody = scanner.useDelimiter("\\A").next();
-            System.out.println("Response Body Test: " );
-            System.out.println(responseBody);
+            return responseBody;
         }
         catch(MalformedURLException m){
             m.printStackTrace();
@@ -25,6 +24,8 @@ public abstract class APIRequestManager {
         catch(IOException ioe){
             ioe.printStackTrace();
         }
+
+        return null;
     }
 
     private InputStream getConnectionStream(String requestDest) throws IOException{
