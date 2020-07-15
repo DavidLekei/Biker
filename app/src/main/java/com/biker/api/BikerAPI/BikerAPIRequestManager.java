@@ -14,22 +14,22 @@ public class BikerAPIRequestManager extends APIRequestManager {
     }
 
     //locationID is provided by the Google Places API. It will be used by the Server to build a route.
-    public Route getBasicRoute(String locationID) throws InvalidParameterException, NullPointerException{
+    public Route getBasicRoute(String latlng) throws InvalidParameterException, NullPointerException{
 
         Route route;
         String requestParams;
 
         //TODO: Implement custom Exception types.
-        if(locationID == null){
+        if(latlng == null){
             throw new NullPointerException();
         }
-        if(locationID == ""){
+        if(latlng == ""){
             throw new InvalidParameterException();
         }
 
 
         route = new Route("TODO");
-        requestParams = "getBasicRoute?location=" + locationID;
+        requestParams = "getBasicRoute?" + latlng;
 
         sendBikerAPIRequest(requestParams);
 
