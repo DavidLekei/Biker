@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_api import status
 from datetime import datetime
@@ -18,7 +18,8 @@ def getBasicRoute():
 	# if(location == None):
 	# 	return "ERROR: No Location Parameter", status.HTTP_400_BAD_REQUEST
 	# else:
-	return "OK", status.HTTP_200_OK
+	route = { 'startingLocation': 'Winnipeg' }
+	return jsonify(route), status.HTTP_200_OK
 
 
 if __name__ == "__main__":
