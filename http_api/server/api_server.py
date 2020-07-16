@@ -5,11 +5,9 @@ from datetime import datetime
 
 
 import biker_routes
-import googlemaps
 
 api_server = Flask(__name__)
 cors = CORS(api_server)
-maps = googlemaps.Client(key='AIzaSyA0a_wiiuucep3IHoieb3xyr8ZLTKGHh7E');
 
 @api_server.route("/", methods=['GET'])
 def home():
@@ -23,6 +21,7 @@ def getBasicRoute():
 	if(latitude == None or longitude == None):
 		return "ERROR: Missing Latitude/Longitude Parameter", status.HTTP_400_BAD_REQUEST
 	else:
+		print('Recieved request with Latitude: ' + latitude + ' / Longitude : ' + longitude)
 		routes = biker_routes.biker_routes()
 
 		#print(routes.buildRoute(latitude, longitude))

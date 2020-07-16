@@ -1,6 +1,9 @@
 from flask import jsonify
-
+import json
 import googlemaps
+
+#imports for testing
+import pprint
 
 class biker_routes:
 
@@ -10,20 +13,30 @@ class biker_routes:
 		print('New Route Object Created')
 
 	def buildRoute(self, latitude, longitude):
-		response = {'startingLocation': 'Winnipeg', 'from': 'biker_routes'}
+		#response = {'startingLocation': 'Winnipeg', 'from': 'biker_routes'}
 
 		#Testing
 
-		self.getNearbyLocations(latitude, longitude)
-
+		nearby_places = self.getNearbyLocations(latitude, longitude)
+		
 		#end testing
 
 
-		return jsonify(response)
+		return jsonify(nearby_places)
 
 	def getNearbyLocations(self, latitude, longitude):
 		print('Searching for Nearby Locations')
+
+		distance = 5000 # which is 5km
+		place_type = 'tourist_attraction'
+
+		#places_nearby() returns a dict of info
 		places = self.maps.places_nearby(location={'latitude': latitude, 'longitude':longitude},
-									radius=20,
-									open_now=True)
-		print('Google Maps returned places:\n', places)
+									radius=distance,
+									type=place_type)
+
+		#TODO: If places_nearby returns a next_page_token, call places_nearby() again
+		#to build a full list of places.
+		#if(places.contains('next_page_token')):
+			#call again with token
+		return places
