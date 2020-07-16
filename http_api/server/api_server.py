@@ -25,9 +25,10 @@ def getBasicRoute():
 	else:
 		routes = biker_routes.biker_routes()
 
-		print(routes.buildRoute(latitude, longitude))
-		route = { 'startingLocation': 'Winnipeg' }
-		return jsonify(route), status.HTTP_200_OK
+		#print(routes.buildRoute(latitude, longitude))
+		#route = { 'startingLocation': 'Winnipeg' }
+		route = routes.buildRoute(latitude, longitude)
+		return route, status.HTTP_200_OK
 
 
 if __name__ == "__main__":
