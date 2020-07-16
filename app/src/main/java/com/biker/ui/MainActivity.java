@@ -9,10 +9,13 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.biker.BikerTask;
 import com.biker.api.BikerAPI.BikerAPIRequestManager;
 import com.biker.api.BikerAPI.Route;
+import com.biker.api.Callbacks.CreateRouteButtonListener;
 import com.biker.api.Callbacks.LocationFailureCallback;
 import com.biker.api.Callbacks.LocationSuccessCallback;
 import com.biker.api.GoogleAPI.PlacesAPIRequestManager;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private PlacesAPIRequestManager placesAPI;
     private BikerAPIRequestManager bikerAPI;
     private Route route;
+    private Button createRouteBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +49,14 @@ public class MainActivity extends AppCompatActivity {
         this.route = null;
 
         createMap();
+        setUpButtons();
 
-//        //TODO: call buildRoute() on button press.
-//        try {
-//            currentLocation = locationFuture.get();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        buildRoute(locationFuture);
+        //buildRoute(locationFuture);
+    }
+
+    private void setUpButtons(){
+        this.createRouteBtn = this.findViewById(R.id.createRouteBtn);
+        createRouteBtn.setOnClickListener(new CreateRouteButtonListener(this, locationFuture));
     }
 
     private void createMap(){
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO: Change return type to Route and have this method return a Route object which will then be drawn on the map.
-    private void buildRoute(CompletableFuture locationFuture) {
+    public void buildRoute(CompletableFuture locationFuture) {
 
         this.placesAPI = new PlacesAPIRequestManager();
         this.bikerAPI = new BikerAPIRequestManager();

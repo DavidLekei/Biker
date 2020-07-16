@@ -6,10 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.biker.ui.MainActivity">
 
+<!-- TODO: Calculate size of button based off device's size. -->
+    <Button
+        android:id="@+id/createRouteBtn"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:text="@string/create_route" />
+
     <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/google_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>
