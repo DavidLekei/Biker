@@ -1,6 +1,9 @@
 package com.biker.api.BikerAPI;
 
+import android.location.Location;
+
 import com.biker.api.LocationAPI.BikerLocation;
+import com.google.android.gms.maps.model.LatLng;
 
 /*
 This class is not responsible for drawing them to the map, it simply creates an Array of BikerLocation objects,
@@ -10,21 +13,26 @@ which define the route to be taken by the user on their ride.
 
 public class Route {
 
-    private String startingLocation;
+    private BikerLocation startingLocation;
     private BikerLocation[] locations;
 
     public Route(){}
 
-    public Route(String startingLocation){
+    public Route(BikerLocation startingLocation){
         this.startingLocation = startingLocation;
     }
 
-    public String getStartingLocation(){
+    public BikerLocation getStartingLocation(){
         return this.startingLocation;
     }
 
-    public void setStartingLocation(String startingLocation){
+    public void setStartingLocation(BikerLocation startingLocation){
         this.startingLocation = startingLocation;
+    }
+
+    public void setStartingLocation(Location startingLocation){
+        LatLng latlng = new LatLng(startingLocation.getLatitude(), startingLocation.getLongitude());
+        this.startingLocation = new BikerLocation(latlng, "Current Location", "", null, "");
     }
 
     public BikerLocation[] getLocations(){return this.locations;}
@@ -33,6 +41,7 @@ public class Route {
         this.locations = locations;
     }
 
+    //TODO: Implement a better toString that returns more information about the Route, instead of just a single Location name.
     public String toString(){
         String location = this.locations[0].getName();
         return location;

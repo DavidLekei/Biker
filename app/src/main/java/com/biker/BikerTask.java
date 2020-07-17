@@ -57,6 +57,7 @@ public class BikerTask extends AsyncTask<Object, Integer, Route> {
 
     private Route getRoute(Location location) throws JSONException {
         Route route = RouteBuilder.buildRoute(bikerAPI.getBasicRoute(location));
+        route.setStartingLocation(location);
         return route;
     }
 
