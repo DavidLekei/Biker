@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             System.out.println("Drawing Route on Google Map");
             //TODO: Remove this test print statement.
-            System.out.println(route.getResults());
+            System.out.println(route);
         }
     }
 
