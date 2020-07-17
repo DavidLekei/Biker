@@ -13,10 +13,11 @@ import org.json.JSONObject;
 public class BikerAPIRequestManager extends APIRequestManager {
 
     private final String BIKER_API_URL = "http://10.0.2.2:5000/";
+    private LocationJSONConverter converter;
     private String key; //TODO: Implement client verification using API_KEYS stored in Redis?
 
     public BikerAPIRequestManager(){
-
+        converter = new LocationJSONConverter();
     }
 
     //locationID is provided by the Google Places API. It will be used by the Server to build a route.
@@ -32,8 +33,7 @@ public class BikerAPIRequestManager extends APIRequestManager {
         }
 
 
-        //route = new Route("TODO");
-        latlng = new LocationJSONConverter().locationToParamString(location);
+        latlng = converter.locationToParamString(location);
         requestParams = "getBasicRoute?" + latlng;
 
         route = sendBikerAPIRequest(requestParams);

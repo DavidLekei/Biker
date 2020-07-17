@@ -1,0 +1,26 @@
+results: [
+	{
+		business_status: ''
+		geometry: {
+				location: {
+						lat: ''
+						lng: ''
+					  }
+				viewport: {
+					  }
+			  }
+		icon: ''
+		id: ''
+		name: ''
+		opening_hours: ''
+		photos: [array of photo objects]
+		place_id: ''
+		plus_code: ''
+		rating: ''
+		reference: ''
+		score: ''
+		types: [array of strings]
+		user_ratings_total: ''
+		vicinity: 'Address'
+	}
+]

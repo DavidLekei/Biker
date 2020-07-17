@@ -102,14 +102,13 @@ public class MainActivity extends AppCompatActivity {
         return this.mapFragment;
     }
 
-    //TODO: Change return type to Route and have this method return a Route object which will then be drawn on the map.
-    public void buildRoute(CompletableFuture locationFuture) {
-
-        this.placesAPI = new PlacesAPIRequestManager();
-        this.bikerAPI = new BikerAPIRequestManager();
-        bikerTask = new BikerTask(this, locationFuture, placesAPI, bikerAPI);
-        bikerTask.execute();
-    }
+//    //TODO: Change return type to Route and have this method return a Route object which will then be drawn on the map.
+//    public void buildRoute(BikerAPIRequestManager bikerAPI, CompletableFuture locationFuture) {
+//
+//        this.bikerAPI = new BikerAPIRequestManager();
+//        bikerTask = new BikerTask(this, locationFuture, bikerAPI);
+//        bikerTask.execute();
+//    }
 
     public void drawRoute(Route route){
         if(route == null){
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             System.out.println("Drawing Route on Google Map");
             //TODO: Remove this test print statement.
-            System.out.println(route.getStartingLocation());
+            System.out.println(route);
         }
     }
 
