@@ -11,7 +11,8 @@ public class RouteBuilder {
     public static Route buildRoute(JSONObject jsonRoute) throws JSONException {
         Route route = new Route();
 
-        route.setStartingLocation(jsonRoute.getString("startingLocation"));
+        //route.setStartingLocation(jsonRoute.getString("startingLocation"));
+        route.setResults(jsonRoute.getJSONArray("results"));
 
         return route;
     }
