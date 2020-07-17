@@ -103,11 +103,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO: Change return type to Route and have this method return a Route object which will then be drawn on the map.
-    public void buildRoute(CompletableFuture locationFuture) {
+    public void buildRoute(BikerAPIRequestManager bikerAPI, CompletableFuture locationFuture) {
 
-        this.placesAPI = new PlacesAPIRequestManager();
         this.bikerAPI = new BikerAPIRequestManager();
-        bikerTask = new BikerTask(this, locationFuture, placesAPI, bikerAPI);
+        bikerTask = new BikerTask(this, locationFuture, bikerAPI);
         bikerTask.execute();
     }
 
