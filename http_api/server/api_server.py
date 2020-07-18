@@ -14,7 +14,7 @@ def home():
 	return "Server is Running."
 
 @api_server.route("/getBasicRoute", methods=['GET'])
-def getBasicRoute():
+def get_basic_route():
 	latitude = request.args.get('latitude')
 	longitude = request.args.get('longitude')
 
@@ -26,7 +26,7 @@ def getBasicRoute():
 
 		#print(routes.buildRoute(latitude, longitude))
 		#route = { 'startingLocation': 'Winnipeg' }
-		route = routes.buildRoute(latitude, longitude)
+		route = routes.build_route(latitude, longitude)
 		return route, status.HTTP_200_OK
 
 
