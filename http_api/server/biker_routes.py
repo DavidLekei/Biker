@@ -47,17 +47,23 @@ class biker_routes:
 			#places = json.loads(nearby_places);
 			#print('Places decoded: \n\n', nearby_places)
 			directions = []
+
+			#print('Type of NEARBY_PLACES: ', type(nearby_places), nearby_places)
+
+			nearby_places = nearby_places['results']
+			#print('Type of NEARBY_PLACES: ', nearby_places)
 			for place in nearby_places:
 				route = self._get_directions(current_location, place)
 			#self.directions(origin=current_location, )
 
 	def _get_directions(self, starting_location, ending_location):
 
+		print('ENDING_LOCATION: ', type(ending_location), ending_location)
+
 		destination = ending_location['place_id']
 
 		directions = self.maps.directions(origin=starting_location,
-										   destination='place_id:' + ending_location,
-										   key=self.key)
+										   destination='place_id:' + destination)
 
 		#maps.directions() returns a LIST of Routes
 		print('**DIRECTIONS**\n', directions);
