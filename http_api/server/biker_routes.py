@@ -58,13 +58,40 @@ class biker_routes:
 
 	def _get_directions(self, starting_location, ending_location):
 
-		print('ENDING_LOCATION: ', type(ending_location), ending_location)
-
+		#print('ENDING_LOCATION: ', type(ending_location), ending_location)
+		print('-------------------------------------------------------')
 		destination = ending_location['place_id']
 
 		directions = self.maps.directions(origin=starting_location,
 										   destination='place_id:' + destination)
 
 		#maps.directions() returns a LIST of Routes
-		print('**DIRECTIONS**\n', directions);
-		pass
+		self.extract_steps(directions)
+
+	def extract_steps(self, directions):
+		i = 0
+		pprinter = pprint.PrettyPrinter(indent=2)
+
+		for d in directions:
+			legs = d['legs']
+			for leg in legs:
+				steps = leg['steps']
+				for step in steps:
+					print('Step ', i, ': ')
+					pprinter.pprint(step)
+					i = i + 1
+
+
+
+		# for d in directions:
+		# #legs = directions['legs']
+		# 	legs = d['legs']
+		# 	print('**LEGS**\n')
+		# 	pprinter = pprint.PrettyPrinter(indent=3)
+		# 	pprinter.pprint(legs)
+		# 	if 'steps' in legs:
+		# 		steps = legs[3]
+		# 		#steps = legs.get('steps')
+		# 		print('**STEPS**\n')
+		# 		pprinter = pprint.PrettyPrinter(indent=3)
+		# 		pprinter.pprint(steps)
