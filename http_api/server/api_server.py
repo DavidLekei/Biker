@@ -26,9 +26,6 @@ def get_basic_route():
 		routes = biker_routes.biker_routes()		
 		route = routes.build_route(latitude, longitude)
 
-		# pprinter = pprint.PrettyPrinter(indent=2)
-		# pprinter.pprint(route)
-		print('Route: ', route)
 
 		return route, status.HTTP_200_OK
 

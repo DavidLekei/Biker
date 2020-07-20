@@ -26,7 +26,8 @@ class biker_routes:
 	def get_nearby_locations(self, latitude, longitude):
 		print('Searching for Nearby Locations')
 
-		distance = 5000 # which is 5km
+		#TODO: Make distance a changable parameter
+		distance = 5000 # meters (5km)
 		place_type = 'tourist_attraction'
 
 		#places_nearby() returns a dict of info
@@ -34,22 +35,11 @@ class biker_routes:
 									radius=distance,
 									type=place_type)
 
-		#TODO: If places_nearby returns a next_page_token, call places_nearby() again
-		#to build a full list of places.
-		#if(places.contains('next_page_token')):
-			#call again with token
+		#TODO: If places_nearby returns a next_page_token, call places_nearby() again to build a full list of places.
+
 		return places
 
 
-	# [Ice Cream Store, Bank, Park, Museum, Bridge]
-	#
-	# [Current Loc -> Ice Cream Store]
-	# [Ice Cream Store -> Bank]
-	# ...
-	#
-	#
-	#
-	#
 
 	def get_directions(self, current_location, nearby_places):
 			route = []
@@ -61,8 +51,6 @@ class biker_routes:
 					self._get_directions(current_location, place, route)
 				else:
 					self._get_directions(prev_place, place, route)
-					# print('-----PREV PLACE-----')
-					# pprinter.pprint(prev_place)
 				prev_place = self._get_latlng(place)
 			return route
 		
@@ -81,13 +69,9 @@ class biker_routes:
 		loc = geo['location']
 		latlng = (loc['lat'], loc['lng'])
 		return latlng
-		#latlng = {'latitude:', loc['latitude'], 'longitude:', loc['longitude']}
 
 	def extract_steps(self, directions, route):
-		#i = 0
-		#pprinter = pprint.PrettyPrinter(indent=2)
-
-
+		
 		"""
 		The following loop goes through the list of Directions. As of now, that list
 		should only contain a single element, as we are requesting directions from 
@@ -104,13 +88,8 @@ class biker_routes:
 
 
 		"""
-
 		for d in directions:
 			legs = d['legs']
 			for leg in legs:
 				steps = leg['steps']
 				route.append(steps)
-				# for step in steps:
-				# 	print('Step ', i, ': ')
-				# 	pprinter.pprint(step)
-				# 	i = i + 1
