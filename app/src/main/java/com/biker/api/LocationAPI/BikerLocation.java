@@ -23,5 +23,4 @@ public class BikerLocation {
     public String getPlaceId(){return this.placeId;}
     public String[] getTypes(){return this.types;}
     public String getAddress(){return this.address;}
-
 }

@@ -15,6 +15,7 @@ public class Route {
 
     private BikerLocation startingLocation;
     private BikerLocation[] locations;
+    private RouteStep[] routeSteps;
 
     public Route(){}
 
@@ -40,6 +41,8 @@ public class Route {
     public void setLocations(BikerLocation[] locations){
         this.locations = locations;
     }
+
+    public void setRouteSteps(RouteStep[] routeSteps) { this.routeSteps = routeSteps; }
 
     //TODO: Implement a better toString that returns more information about the Route, instead of just a single Location name.
     public String toString(){

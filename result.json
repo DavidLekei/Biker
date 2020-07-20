@@ -24,3 +24,30 @@ results: [
 		vicinity: 'Address'
 	}
 ]
+
+
+
+This is a Step object in JSON
+{
+	'distance': {
+		'text': '0.4 km',
+		'value': 371
+		},
+	'duration': {
+		'text': '1 min',
+		'value': 75
+		},
+	'end_location': {
+		'lat': 49.9182859,
+		'lng': -97.0846401
+		},
+	'html_instructions': 'Head <b>northwest</b> on <b>Simpson Ave</b> toward <b>Grey St</b>',
+	'polyline': {
+		'points': 'wjtoHd}ooQGVwB~IqCpL_@nB'
+		},
+	'start_location': {
+		'lat': 49.9167639,
+		'lng': -97.0800347
+		},
+	'travel_mode': 'DRIVING'
+}
