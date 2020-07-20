@@ -12,19 +12,16 @@ class biker_routes:
 	def __init__(self):
 		self.key = 'AIzaSyA0a_wiiuucep3IHoieb3xyr8ZLTKGHh7E'
 		self.maps = googlemaps.Client(key=self.key);
+
+		self.pprinter = pprint.PrettyPrinter(indent=2)
+
 		print('New Route Object Created')
 
 	def build_route(self, latitude, longitude):
-		#response = {'startingLocation': 'Winnipeg', 'from': 'biker_routes'}
-
-		#Testing
-
 		nearby_places = self.get_nearby_locations(latitude, longitude)
 		directions = self.get_directions(current_location=(latitude, longitude), nearby_places=nearby_places)
-		#end testing
 
-
-		return jsonify(nearby_places)
+		return jsonify(directions)
 
 	def get_nearby_locations(self, latitude, longitude):
 		print('Searching for Nearby Locations')
@@ -43,55 +40,77 @@ class biker_routes:
 			#call again with token
 		return places
 
+
+	# [Ice Cream Store, Bank, Park, Museum, Bridge]
+	#
+	# [Current Loc -> Ice Cream Store]
+	# [Ice Cream Store -> Bank]
+	# ...
+	#
+	#
+	#
+	#
+
 	def get_directions(self, current_location, nearby_places):
-			#places = json.loads(nearby_places);
-			#print('Places decoded: \n\n', nearby_places)
-			directions = []
-
-			#print('Type of NEARBY_PLACES: ', type(nearby_places), nearby_places)
-
+			route = []
 			nearby_places = nearby_places['results']
-			#print('Type of NEARBY_PLACES: ', nearby_places)
+			prev_place = None
+
 			for place in nearby_places:
-				route = self._get_directions(current_location, place)
-			#self.directions(origin=current_location, )
+				if(prev_place == None):
+					self._get_directions(current_location, place, route)
+				else:
+					self._get_directions(prev_place, place, route)
+					# print('-----PREV PLACE-----')
+					# pprinter.pprint(prev_place)
+				prev_place = self._get_latlng(place)
+			return route
+		
+	def _get_directions(self, starting_location, ending_location, route):
 
-	def _get_directions(self, starting_location, ending_location):
-
-		#print('ENDING_LOCATION: ', type(ending_location), ending_location)
 		print('-------------------------------------------------------')
 		destination = ending_location['place_id']
 
 		directions = self.maps.directions(origin=starting_location,
 										   destination='place_id:' + destination)
 
-		#maps.directions() returns a LIST of Routes
-		self.extract_steps(directions)
+		self.extract_steps(directions, route)
 
-	def extract_steps(self, directions):
-		i = 0
-		pprinter = pprint.PrettyPrinter(indent=2)
+	def _get_latlng(self, place):
+		geo = place['geometry']
+		loc = geo['location']
+		latlng = (loc['lat'], loc['lng'])
+		return latlng
+		#latlng = {'latitude:', loc['latitude'], 'longitude:', loc['longitude']}
+
+	def extract_steps(self, directions, route):
+		#i = 0
+		#pprinter = pprint.PrettyPrinter(indent=2)
+
+
+		"""
+		The following loop goes through the list of Directions. As of now, that list
+		should only contain a single element, as we are requesting directions from 
+		Point A to Point B.
+
+		In the future, we can maybe change the request to include multiple destinations.
+		Ex) Directions from Point A to B, then to C, then to D, etc
+		In that case, the directions list will have more than one element.
+
+		The loop then extracts the 'legs' JSON Array, which again, should only actually
+		contain a single element, which is another List of Steps
+
+		The List of Steps then gets added to the route List variable.
+
+
+		"""
 
 		for d in directions:
 			legs = d['legs']
 			for leg in legs:
 				steps = leg['steps']
-				for step in steps:
-					print('Step ', i, ': ')
-					pprinter.pprint(step)
-					i = i + 1
-
-
-
-		# for d in directions:
-		# #legs = directions['legs']
-		# 	legs = d['legs']
-		# 	print('**LEGS**\n')
-		# 	pprinter = pprint.PrettyPrinter(indent=3)
-		# 	pprinter.pprint(legs)
-		# 	if 'steps' in legs:
-		# 		steps = legs[3]
-		# 		#steps = legs.get('steps')
-		# 		print('**STEPS**\n')
-		# 		pprinter = pprint.PrettyPrinter(indent=3)
-		# 		pprinter.pprint(steps)
+				route.append(steps)
+				# for step in steps:
+				# 	print('Step ', i, ': ')
+				# 	pprinter.pprint(step)
+				# 	i = i + 1

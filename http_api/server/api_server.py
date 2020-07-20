@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_api import status
 from datetime import datetime
+import pprint
 
 
 import biker_routes
@@ -22,11 +23,13 @@ def get_basic_route():
 		return "ERROR: Missing Latitude/Longitude Parameter", status.HTTP_400_BAD_REQUEST
 	else:
 		print('Recieved request with Latitude: ' + latitude + ' / Longitude : ' + longitude)
-		routes = biker_routes.biker_routes()
-
-		#print(routes.buildRoute(latitude, longitude))
-		#route = { 'startingLocation': 'Winnipeg' }
+		routes = biker_routes.biker_routes()		
 		route = routes.build_route(latitude, longitude)
+
+		# pprinter = pprint.PrettyPrinter(indent=2)
+		# pprinter.pprint(route)
+		print('Route: ', route)
+
 		return route, status.HTTP_200_OK
 
 
