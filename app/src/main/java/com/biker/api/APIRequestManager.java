@@ -70,6 +70,8 @@ public abstract class APIRequestManager {
 
     private InputStream getConnectionStream(String requestDest) throws IOException{
         URLConnection connection = new URL(requestDest).openConnection();
+        System.out.println("Content Length: " + connection.getContentLength());
+        System.out.println("Content Encoding: " + connection.getContentEncoding());
         return connection.getInputStream();
     }
 

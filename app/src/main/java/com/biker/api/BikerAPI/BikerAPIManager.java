@@ -14,7 +14,8 @@ import org.json.JSONObject;
 
 public class BikerAPIManager extends APIRequestManager {
 
-    private final String BIKER_API_URL = "http://10.0.2.2:5000/";
+    private final String BIKER_API_URL_EMULATOR = "http://10.0.2.2:5000/";
+    private final String BIKER_API_URL_REAL_DEVICE = "http://localhost:5000/";
     private LocationJSONConverter converter;
     private String key; //TODO: Implement client verification using API_KEYS stored in Redis?
 
@@ -44,7 +45,7 @@ public class BikerAPIManager extends APIRequestManager {
     }
 
     private JSONArray sendBikerAPIRequest(String requestParams) throws JSONException, IOException {
-        return new JSONArray(super.sendAPIRequest(BIKER_API_URL, requestParams));
+        return new JSONArray(super.sendAPIRequest(BIKER_API_URL_REAL_DEVICE, requestParams));
     }
 
 }
