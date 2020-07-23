@@ -10,7 +10,7 @@ import java.net.URLConnection;
 import java.security.InvalidParameterException;
 import java.util.Scanner;
 
-import com.biker.api.LocationAPI.LocationJSONConverter;
+import com.biker.api.BikerAPI.Location.LocationJSONConverter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -2,7 +2,7 @@ package com.biker.api.BikerAPI.Route;
 
 import android.location.Location;
 
-import com.biker.api.LocationAPI.BikerLocation;
+import com.biker.api.BikerAPI.Location.BikerLocation;
 import com.google.android.gms.maps.model.LatLng;
 
 /*

@@ -3,8 +3,8 @@ package com.biker.api.BikerAPI.Route;
 import android.location.Location;
 
 import com.biker.api.BikerAPI.BikerAPIManager;
-import com.biker.api.LocationAPI.BikerLocation;
-import com.biker.api.LocationAPI.LocationJSONConverter;
+import com.biker.api.BikerAPI.Location.BikerLocation;
+import com.biker.api.BikerAPI.Location.LocationJSONConverter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

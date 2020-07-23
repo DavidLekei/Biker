@@ -16,6 +16,7 @@ import com.biker.api.BikerAPI.Route.Route;
 import com.biker.api.Callbacks.CreateRouteButtonListener;
 import com.biker.api.Callbacks.LocationFailureCallback;
 import com.biker.api.Callbacks.LocationSuccessCallback;
+import com.biker.api.Callbacks.MapRouteCallback;
 import com.example.biker.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -30,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private SupportMapFragment mapFragment;
     private FusedLocationProviderClient client;
     private CompletableFuture<Location> locationFuture;
-    private Location currentLocation;
-    private AsyncTask bikerTask;
-    private BikerAPIManager bikerAPI;
     private Route route;
     private Button createRouteBtn;
 
@@ -112,9 +110,9 @@ public class MainActivity extends AppCompatActivity {
             //TODO: Throw exception
         }
         else{
+            this.route = route;
             System.out.println("Drawing Route on Google Map");
-            //TODO: Remove this test print statement.
-            //System.out.println(route);
+            mapFragment.getMapAsync(new MapRouteCallback(route));
         }
     }
 

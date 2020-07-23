@@ -1,4 +1,4 @@
-package com.biker.api.LocationAPI;
+package com.biker.api.BikerAPI.Location;
 
 import com.google.android.gms.maps.model.LatLng;
 

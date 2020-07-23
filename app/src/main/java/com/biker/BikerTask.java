@@ -3,17 +3,13 @@ package com.biker;
 import android.location.Location;
 import android.os.AsyncTask;
 
-import com.biker.api.BikerAPI.BikerAPIManager;
-import com.biker.api.BikerAPI.Route.EmptyRoute;
 import com.biker.api.BikerAPI.Route.Route;
 import com.biker.api.BikerAPI.Route.RouteBuilder;
-import com.biker.api.LocationAPI.LocationJSONConverter;
 import com.biker.ui.MainActivity;
 
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.net.ProtocolException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
