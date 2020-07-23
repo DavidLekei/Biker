@@ -5,24 +5,14 @@ import googlemaps
 #imports for testing
 import pprint
 
-class biker_routes:
+class biker_api:
 
 
 	#TODO: DO NOT HARDCODE KEY!!!!
 	def __init__(self):
 		self.key = 'AIzaSyA0a_wiiuucep3IHoieb3xyr8ZLTKGHh7E'
 		self.maps = googlemaps.Client(key=self.key);
-
 		self.pprinter = pprint.PrettyPrinter(indent=2)
-
-		print('New Route Object Created')
-
-	def build_route(self, latitude, longitude):
-		nearby_places = self.get_nearby_locations(latitude, longitude)
-		directions = self.get_directions(current_location=(latitude, longitude), nearby_places=nearby_places)
-
-		return jsonify(directions)
-
 
 	#@RETURN: A JSONObject with the fields:
 	#			html_attributions: []
@@ -79,38 +69,23 @@ class biker_routes:
 
 		return list_of_locations
 
-
-
-	def get_directions(self, current_location, nearby_places):
-			route = []
-			nearby_places = nearby_places['results']
-			prev_place = None
-
-			for place in nearby_places:
-				if(prev_place == None):
-					self._get_directions(current_location, place, route)
-				else:
-					self._get_directions(prev_place, place, route)
-				prev_place = self._get_latlng(place)
-			return route
-		
-	def _get_directions(self, starting_location, ending_location, route):
+	def get_directions(self, starting_location, ending_location):
 
 		print('-------------------------------------------------------')
-		destination = ending_location['place_id']
+		# start_lat = starting_location[0]
+		# start_lng = starting_location[1]
+
+		# dest_lat = ending_location[0]
+		# dest_lng = ending_location[1]
 
 		directions = self.maps.directions(origin=starting_location,
-										   destination='place_id:' + destination)
+										   destination=ending_location,
+										   mode='bicycling')
 
-		self.extract_steps(directions, route)
+		route = self.extract_steps(directions)
+		return route
 
-	def _get_latlng(self, place):
-		geo = place['geometry']
-		loc = geo['location']
-		latlng = (loc['lat'], loc['lng'])
-		return latlng
-
-	def extract_steps(self, directions, route):
+	def extract_steps(self, directions):
 		
 		"""
 		The following loop goes through the list of Directions. As of now, that list
@@ -128,8 +103,10 @@ class biker_routes:
 
 
 		"""
+		route = []
 		for d in directions:
 			legs = d['legs']
 			for leg in legs:
 				steps = leg['steps']
 				route.append(steps)
+		return route

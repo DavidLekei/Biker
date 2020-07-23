@@ -23,10 +23,18 @@ class server_test:
 		places = json.loads(res.text)
 		printer.pprint(places)
 
+	def test_get_directions(self):
+		print('Testing getDirections endpoint')
+		params = {'start_lat':self.lat, 'start_lng':self.lng, 'end_lat':49.944054, 'end_lng':-97.077415}
+		response = requests.get('http://localhost:5000/getDirections', params=params)
+		directions = json.loads(response.text)
+		self.printer.pprint(directions)
+
 
 
 if __name__ == "__main__":
 	print('Running Server Tests')
 	test = server_test()
-	test.test_get_nearby_places()
+	#test.test_get_nearby_places()
 	#test.testGetBasicRoute()
+	test.test_get_directions()
