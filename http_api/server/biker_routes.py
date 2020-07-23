@@ -48,7 +48,7 @@ class biker_routes:
 
 		#TODO: If places_nearby returns a next_page_token, call places_nearby() again to build a full list of places.
 
-		return places
+		return locations
 
 	def _build_locations(self, places):
 		print('Building Location Dict')

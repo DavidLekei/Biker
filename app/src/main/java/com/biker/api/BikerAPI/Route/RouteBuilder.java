@@ -21,12 +21,14 @@ public class RouteBuilder {
         return route;
     }
 
-    private static BikerLocation[] extractLocations(JSONArray jsonRoute) throws JSONException {
+    private static BikerLocation[] extractLocations(JSONArray jsonLocations) throws JSONException {
         RouteJSONConverter converter = new RouteJSONConverter();
-        BikerLocation[] locations = new BikerLocation[jsonRoute.length()];
+        BikerLocation[] locations = new BikerLocation[jsonLocations.length()];
 
         //jsonRoute is an Array of Arrays. Each Array in jsonRoute is an Array of JSONObjects. Each JSONObject refers to a
         //specific step. So since we only
+
+        return locations;
     }
 
     //Biker API Server responds with an Array of Directions Arrays.

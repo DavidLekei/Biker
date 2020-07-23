@@ -21,10 +21,8 @@ class server_test:
 		res = requests.get('http://localhost:5000/getBasicRouteTest', params=self.loc)
 		
 		places = json.loads(res.text)
-		#printer.pprint(places)
-		print(places)
+		printer.pprint(places)
 
-		#print('Response: ', res.text)
 
 
 if __name__ == "__main__":

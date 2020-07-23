@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_api import status
 from datetime import datetime
 import pprint
+import ast
 
 
 import biker_routes
@@ -49,6 +50,14 @@ def get_nearby_places():
 		routes = biker_routes.biker_routes()
 		nearby_places = routes.get_nearby_locations(latitude, longitude)
 		return jsonify(nearby_places), status.HTTP_200_OK
+
+@api_server.route("/getNearbyPlacesTest", methods=['GET'])
+def get_nearby_places_test():
+	with open('nearby_places.json') as file:
+		data = json.load(file)
+
+	response = jsonify(data)
+	return response, status.HTTP_200_OK
 
 
 
