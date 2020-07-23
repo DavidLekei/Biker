@@ -1,4 +1,4 @@
-package com.biker.api.BikerAPI;
+package com.biker.api.BikerAPI.Route;
 
 import com.google.android.gms.maps.model.LatLng;
 

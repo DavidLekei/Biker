@@ -12,13 +12,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class BikerAPIRequestManager extends APIRequestManager {
+public class BikerAPIManager extends APIRequestManager {
 
     private final String BIKER_API_URL = "http://10.0.2.2:5000/";
     private LocationJSONConverter converter;
     private String key; //TODO: Implement client verification using API_KEYS stored in Redis?
 
-    public BikerAPIRequestManager(){
+    public BikerAPIManager(){
         converter = new LocationJSONConverter();
     }
 

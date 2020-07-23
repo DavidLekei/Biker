@@ -1,8 +1,7 @@
-package com.biker.api.BikerAPI;
+package com.biker.api.BikerAPI.Route;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RouteJSONConverter {

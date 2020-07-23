@@ -3,15 +3,14 @@ package com.biker;
 import android.location.Location;
 import android.os.AsyncTask;
 
-import com.biker.api.BikerAPI.BikerAPIRequestManager;
-import com.biker.api.BikerAPI.Route;
-import com.biker.api.BikerAPI.RouteBuilder;
-import com.biker.api.GoogleAPI.PlacesAPIRequestManager;
+import com.biker.api.BikerAPI.BikerAPIManager;
+import com.biker.api.BikerAPI.Route.EmptyRoute;
+import com.biker.api.BikerAPI.Route.Route;
+import com.biker.api.BikerAPI.Route.RouteBuilder;
 import com.biker.api.LocationAPI.LocationJSONConverter;
 import com.biker.ui.MainActivity;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.ProtocolException;
@@ -21,13 +20,13 @@ import java.util.concurrent.ExecutionException;
 public class BikerTask extends AsyncTask<Object, Integer, Route> {
 
     private CompletableFuture locationFuture;
-    private BikerAPIRequestManager bikerAPI;
+    private BikerAPIManager bikerAPI;
     private MainActivity activity;
     private LocationJSONConverter converter;
 
     public BikerTask(MainActivity activity,
                      CompletableFuture locationFuture,
-                     BikerAPIRequestManager bikerAPI){
+                     BikerAPIManager bikerAPI){
         this.activity = activity;
         this.locationFuture = locationFuture;
         this.bikerAPI = bikerAPI;
@@ -58,7 +57,7 @@ public class BikerTask extends AsyncTask<Object, Integer, Route> {
     }
 
     private Route getRoute(Location location) throws JSONException, IOException {
-            Route route = null;
+            Route route;
             try {
                 route = RouteBuilder.buildRoute(bikerAPI.getBasicRoute(location));
                 route.setStartingLocation(location);
@@ -66,6 +65,7 @@ public class BikerTask extends AsyncTask<Object, Integer, Route> {
             catch(ProtocolException e){
                 System.out.println(e.getMessage());
                 e.printStackTrace();
+                route = new EmptyRoute();
             }
             return route;
     }

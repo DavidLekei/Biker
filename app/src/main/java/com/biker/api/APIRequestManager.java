@@ -55,6 +55,7 @@ public abstract class APIRequestManager {
             InputStream urlInputStream = getConnectionStream(API_URL + requestParams);
             scanner = new Scanner(urlInputStream, "UTF-8");
             String responseBody = scanner.useDelimiter("\\A").next();
+            System.out.println("Response Length: " + responseBody.length());
             return responseBody;
         }
         catch(MalformedURLException m){

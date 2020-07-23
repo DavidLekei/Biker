@@ -3,7 +3,7 @@ package com.biker.api.Callbacks;
 import android.view.View;
 
 import com.biker.BikerTask;
-import com.biker.api.BikerAPI.BikerAPIRequestManager;
+import com.biker.api.BikerAPI.BikerAPIManager;
 import com.biker.ui.MainActivity;
 
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +20,7 @@ public class CreateRouteButtonListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        BikerTask bikerTask = new BikerTask(mainActivity, locationFuture, new BikerAPIRequestManager());
+        BikerTask bikerTask = new BikerTask(mainActivity, locationFuture, new BikerAPIManager());
         bikerTask.execute();
     }
 }

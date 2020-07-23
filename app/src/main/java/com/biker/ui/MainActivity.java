@@ -9,12 +9,10 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
-import com.biker.BikerTask;
-import com.biker.api.BikerAPI.BikerAPIRequestManager;
-import com.biker.api.BikerAPI.Route;
+import com.biker.api.BikerAPI.BikerAPIManager;
+import com.biker.api.BikerAPI.Route.Route;
 import com.biker.api.Callbacks.CreateRouteButtonListener;
 import com.biker.api.Callbacks.LocationFailureCallback;
 import com.biker.api.Callbacks.LocationSuccessCallback;
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Location currentLocation;
     private AsyncTask bikerTask;
     private PlacesAPIRequestManager placesAPI;
-    private BikerAPIRequestManager bikerAPI;
+    private BikerAPIManager bikerAPI;
     private Route route;
     private Button createRouteBtn;
 
@@ -111,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     public void drawRoute(Route route){
-        if(route == null){
-            System.out.println("Route set to NULL");
+        if(route.isEmpty()){
+            System.out.println("Failed to Load Route. Please Try Again.");
             //TODO: Throw exception
         }
         else{

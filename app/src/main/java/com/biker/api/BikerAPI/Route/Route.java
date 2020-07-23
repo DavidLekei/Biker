@@ -1,4 +1,4 @@
-package com.biker.api.BikerAPI;
+package com.biker.api.BikerAPI.Route;
 
 import android.location.Location;
 
@@ -54,4 +54,6 @@ public class Route {
 
         return sBuilder.toString();
     }
+
+    public boolean isEmpty(){return false;}
 }

@@ -1,6 +1,4 @@
-package com.biker.api.BikerAPI;
-
-import com.biker.api.LocationAPI.LocationJSONConverter;
+package com.biker.api.BikerAPI.Route;
 
 import org.json.JSONArray;
 import org.json.JSONException;
