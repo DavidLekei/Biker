@@ -32,35 +32,35 @@ public class LocationJSONConverter {
     }
 
     private LatLng getLatLng(JSONObject result) throws JSONException {
-        JSONObject location = result.getJSONObject("geometry").getJSONObject("location");
-        double lat = location.getDouble("lat");
-        double lng = location.getDouble("lng");
+        JSONObject location = result.optJSONObject("location");
+        double lat = location.optDouble("lat");
+        double lng = location.optDouble("lng");
 
         return new LatLng(lat, lng);
     }
 
     private String getName(JSONObject result) throws JSONException {
-        return result.getString("name");
+        return result.optString("name");
     }
 
     private String getPlaceId(JSONObject result) throws JSONException{
-        return result.getString("place_id");
+        return result.optString("place_id");
     }
 
     private String[] getTypes(JSONObject result) throws JSONException{
         String[] types;
-        JSONArray resultTypes = result.getJSONArray("types");
+        JSONArray resultTypes = result.optJSONArray("types");
         types = new String[resultTypes.length()];
 
         for(int i = 0; i < resultTypes.length(); i++){
-            types[i] = resultTypes.getString(i);
+            types[i] = resultTypes.optString(i);
         }
 
         return types;
     }
 
     private String getAddress(JSONObject result) throws JSONException{
-        return result.getString("vicinity");
+        return result.optString("address");
     }
 
     public String locationToParamString(Location location){

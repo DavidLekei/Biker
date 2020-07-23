@@ -20,7 +20,7 @@ public class CreateRouteButtonListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        BikerTask bikerTask = new BikerTask(mainActivity, locationFuture, new BikerAPIManager());
+        BikerTask bikerTask = new BikerTask(mainActivity, locationFuture);
         bikerTask.execute();
     }
 }

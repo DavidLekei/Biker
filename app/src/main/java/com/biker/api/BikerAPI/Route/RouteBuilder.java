@@ -1,32 +1,51 @@
 package com.biker.api.BikerAPI.Route;
 
+import android.location.Location;
+
+import com.biker.api.BikerAPI.BikerAPIManager;
 import com.biker.api.LocationAPI.BikerLocation;
+import com.biker.api.LocationAPI.LocationJSONConverter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 public class RouteBuilder {
 
-    public RouteBuilder(){}
+    private BikerAPIManager bikerAPI;
 
-    //TODO: Make this builder method more robust. Add logic to it so that it checks what fields are in the jsonRoute object and only adds those to the new route object.
-    public static Route buildRoute(JSONArray jsonRoute) throws JSONException {
+    public RouteBuilder(){
+        this.bikerAPI = new BikerAPIManager();
+    }
+
+    public Route buildRoute(Location location) throws JSONException, IOException {
         Route route = new Route();
+
+        BikerLocation[] locations = extractLocations(bikerAPI.getRouteLocations(location));
 
         //route.setStartingLocation(jsonRoute.getString("startingLocation"));
         //route.setLocations(extractResults(jsonRoute));
-        route.setRouteSteps(extractSteps(jsonRoute));
+        //route.setRouteSteps(extractSteps(jsonRoute));
+
+        route.setStartingLocation(location);
+        route.setLocations(locations);
 
         return route;
     }
 
-    private static BikerLocation[] extractLocations(JSONArray jsonLocations) throws JSONException {
-        RouteJSONConverter converter = new RouteJSONConverter();
+    //TODO: Implement
+    private BikerLocation[] extractLocations(JSONArray jsonLocations) throws JSONException {
+        LocationJSONConverter converter = new LocationJSONConverter();
         BikerLocation[] locations = new BikerLocation[jsonLocations.length()];
 
         //jsonRoute is an Array of Arrays. Each Array in jsonRoute is an Array of JSONObjects. Each JSONObject refers to a
         //specific step. So since we only
+        for(int i = 0; i < jsonLocations.length(); i++){
+            locations[i] = converter.jsonToLocation(jsonLocations.optJSONObject(i));
+            System.out.println(locations[i]);
+        }
 
         return locations;
     }
@@ -37,7 +56,7 @@ public class RouteBuilder {
 
 
     //TODO: This feels really ugly. Maybe try to refactor in the future.
-    private static RouteStep[] extractSteps(JSONArray jsonRoute) throws JSONException {
+    private RouteStep[] extractSteps(JSONArray jsonRoute) throws JSONException {
         RouteJSONConverter converter = new RouteJSONConverter();
         RouteStep[] route = new RouteStep[jsonRoute.length()];
 

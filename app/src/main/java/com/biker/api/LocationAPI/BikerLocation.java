@@ -23,4 +23,8 @@ public class BikerLocation {
     public String getPlaceId(){return this.placeId;}
     public String[] getTypes(){return this.types;}
     public String getAddress(){return this.address;}
+
+    public String toString(){
+        return this.name + "\n\t" + this.address + "\n\t" + this.placeId + "\n\t" + this.types + "\n\t" + this.latlng + "\n\n";
+    }
 }

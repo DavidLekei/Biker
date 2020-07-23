@@ -20,17 +20,14 @@ import java.util.concurrent.ExecutionException;
 public class BikerTask extends AsyncTask<Object, Integer, Route> {
 
     private CompletableFuture locationFuture;
-    private BikerAPIManager bikerAPI;
     private MainActivity activity;
-    private LocationJSONConverter converter;
+    private RouteBuilder routeBuilder;
 
     public BikerTask(MainActivity activity,
-                     CompletableFuture locationFuture,
-                     BikerAPIManager bikerAPI){
+                     CompletableFuture locationFuture){
         this.activity = activity;
         this.locationFuture = locationFuture;
-        this.bikerAPI = bikerAPI;
-        this.converter = new LocationJSONConverter();
+        this.routeBuilder = new RouteBuilder();
     }
 
 
@@ -57,17 +54,9 @@ public class BikerTask extends AsyncTask<Object, Integer, Route> {
     }
 
     private Route getRoute(Location location) throws JSONException, IOException {
-            Route route;
-            try {
-                route = RouteBuilder.buildRoute(bikerAPI.getBasicRoute(location));
-                route.setStartingLocation(location);
-            }
-            catch(ProtocolException e){
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-                route = new EmptyRoute();
-            }
-            return route;
+        Route route;
+        route = routeBuilder.buildRoute(location);
+        return route;
     }
 
 }
