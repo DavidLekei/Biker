@@ -23,6 +23,12 @@ class biker_routes:
 
 		return jsonify(directions)
 
+
+	#@RETURN: A JSONObject with the fields:
+	#			html_attributions: []
+	#			next_page_token: String
+	#			results: Array of JSON Objects
+	#			status: HTTP Status Code (200 OK)
 	def get_nearby_locations(self, latitude, longitude):
 		print('Searching for Nearby Locations')
 
@@ -35,9 +41,43 @@ class biker_routes:
 									radius=distance,
 									type=place_type)
 
+		locations = self._build_locations(places)
+		for loc in locations:
+			print(loc, '\n\n\n')
+
+
 		#TODO: If places_nearby returns a next_page_token, call places_nearby() again to build a full list of places.
 
 		return places
+
+	def _build_locations(self, places):
+		print('Building Location Dict')
+
+		list_of_locations = []
+
+		results = places['results']
+		for res in results:
+			location = {}
+
+			#Extract data from JSON
+			name = res['name']
+			geo = res['geometry']
+			loc = geo['location']
+			place_id = res['place_id']
+			types = res['types']
+			address = res['vicinity']
+
+			#Add Data to Dictionary
+			location["name"] = name
+			location["location"] = loc
+			location["place_id"] = place_id
+			location["types"] = types
+			location["address"] = address
+
+			#Add new Dictionary to Array of Dict's
+			list_of_locations.append(location)
+
+		return list_of_locations
 
 
 

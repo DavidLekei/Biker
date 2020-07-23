@@ -2,23 +2,33 @@ import requests
 import json
 import pprint
 
+class server_test:
 
-def testGetBasicRoute():
+	def __init__(self):
+		self.lat = 49.916948
+		self.lng = -97.079885
+		self.printer = pprint.PrettyPrinter(indent=2)
+		self.loc = {'latitude':self.lat, 'longitude':self.lng}
 
-	winnipeg_lat = 49.916948
-	winnipeg_lng = -97.079885
-	printer = pprint.PrettyPrinter(indent=3)
 
-	location = {'latitude': winnipeg_lat, 'longitude': winnipeg_lng}
-	res = requests.get('http://localhost:5000/getBasicRouteTest', params=location)
-	
-	places = json.loads(res.text)
-	#printer.pprint(places)
-	print(places)
+	def test_get_nearby_places(self):
+		print('Testing getNearbyPlaces Endpoint')
+		response = requests.get('http://localhost:5000/getNearbyPlaces', params=self.loc)
+		nearby_places = json.loads(response.text)
+		self.printer.pprint(nearby_places)
 
-	#print('Response: ', res.text)
+	def testGetBasicRoute(self):
+		res = requests.get('http://localhost:5000/getBasicRouteTest', params=self.loc)
+		
+		places = json.loads(res.text)
+		#printer.pprint(places)
+		print(places)
+
+		#print('Response: ', res.text)
 
 
 if __name__ == "__main__":
 	print('Running Server Tests')
-	testGetBasicRoute()
+	test = server_test()
+	test.test_get_nearby_places()
+	#test.testGetBasicRoute()

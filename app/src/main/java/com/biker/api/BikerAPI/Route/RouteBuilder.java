@@ -1,5 +1,7 @@
 package com.biker.api.BikerAPI.Route;
 
+import com.biker.api.LocationAPI.BikerLocation;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +19,14 @@ public class RouteBuilder {
         route.setRouteSteps(extractSteps(jsonRoute));
 
         return route;
+    }
+
+    private static BikerLocation[] extractLocations(JSONArray jsonRoute) throws JSONException {
+        RouteJSONConverter converter = new RouteJSONConverter();
+        BikerLocation[] locations = new BikerLocation[jsonRoute.length()];
+
+        //jsonRoute is an Array of Arrays. Each Array in jsonRoute is an Array of JSONObjects. Each JSONObject refers to a
+        //specific step. So since we only
     }
 
     //Biker API Server responds with an Array of Directions Arrays.

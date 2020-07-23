@@ -38,6 +38,21 @@ def get_basic_route():
 		print_response_info(route)
 		return route, status.HTTP_200_OK
 
+@api_server.route("/getNearbyPlaces", methods=['GET'])
+def get_nearby_places():
+	latitude = request.args.get('latitude')
+	longitude = request.args.get('longitude')
+
+	if(latitude == None or longitude == None):
+		return "ERROR: Missing Latitude/Longitude Parameter", status.HTTP_400_BAD_REQUEST
+	else:
+		routes = biker_routes.biker_routes()
+		nearby_places = routes.get_nearby_locations(latitude, longitude)
+		return jsonify(nearby_places), status.HTTP_200_OK
+
+
+
+
 def print_response_info(response):
 	print('Response Length: ', response.headers.get('Content-Length', type=int))
 	print('Response Type/Charset: ', response.headers.get('Content-Type', type=str))
