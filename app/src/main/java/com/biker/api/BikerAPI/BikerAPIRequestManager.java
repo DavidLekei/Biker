@@ -2,6 +2,7 @@ package com.biker.api.BikerAPI;
 
 import android.location.Location;
 
+import java.io.IOException;
 import java.security.InvalidParameterException;
 
 import com.biker.api.APIRequestManager;
@@ -22,7 +23,7 @@ public class BikerAPIRequestManager extends APIRequestManager {
     }
 
     //locationID is provided by the Google Places API. It will be used by the Server to build a route.
-    public JSONArray getBasicRoute(Location location) throws InvalidParameterException, NullPointerException, JSONException {
+    public JSONArray getBasicRoute(Location location) throws InvalidParameterException, NullPointerException, JSONException, IOException {
 
         JSONArray route;
         String requestParams;
@@ -35,14 +36,14 @@ public class BikerAPIRequestManager extends APIRequestManager {
 
 
         latlng = converter.locationToParamString(location);
-        requestParams = "getBasicRoute?" + latlng;
+        requestParams = "getBasicRouteTest?" + latlng;
 
         route = sendBikerAPIRequest(requestParams);
 
         return route;
     }
 
-    private JSONArray sendBikerAPIRequest(String requestParams) throws JSONException {
+    private JSONArray sendBikerAPIRequest(String requestParams) throws JSONException, IOException {
         return new JSONArray(super.sendAPIRequest(BIKER_API_URL, requestParams));
     }
 

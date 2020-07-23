@@ -46,7 +46,12 @@ public class Route {
 
     //TODO: Implement a better toString that returns more information about the Route, instead of just a single Location name.
     public String toString(){
-        String location = this.locations[0].getName();
-        return location;
+        StringBuilder sBuilder = new StringBuilder("-------------Current Route-----------");
+        for(int i = 0; i < this.routeSteps.length; i++){
+            sBuilder.append('\n');
+            sBuilder.append(routeSteps[i].toString());
+        }
+
+        return sBuilder.toString();
     }
 }

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, json
 from flask_cors import CORS
 from flask_api import status
 from datetime import datetime
@@ -14,6 +14,15 @@ cors = CORS(api_server)
 def home():
 	return "Server is Running."
 
+@api_server.route("/getBasicRouteTest", methods=['GET'])
+def get_basic_route_test():
+	with open("google_directions.json") as test_file:
+		data = json.load(test_file)
+
+	response = jsonify(data)
+	print_response_info(response)
+	return response, status.HTTP_200_OK
+
 @api_server.route("/getBasicRoute", methods=['GET'])
 def get_basic_route():
 	latitude = request.args.get('latitude')
@@ -26,8 +35,14 @@ def get_basic_route():
 		routes = biker_routes.biker_routes()		
 		route = routes.build_route(latitude, longitude)
 
-
+		print_response_info(route)
 		return route, status.HTTP_200_OK
+
+def print_response_info(response):
+	print('Response Length: ', response.headers.get('Content-Length', type=int))
+	print('Response Type/Charset: ', response.headers.get('Content-Type', type=str))
+	print('Response Encoding: ', response.headers.get('Content-Encoding', type=str))
+	print('Response Charset: ', response.charset)
 
 
 if __name__ == "__main__":

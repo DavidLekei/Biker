@@ -29,13 +29,17 @@ public class RouteBuilder {
     //TODO: This feels really ugly. Maybe try to refactor in the future.
     private static RouteStep[] extractSteps(JSONArray jsonRoute) throws JSONException {
         RouteJSONConverter converter = new RouteJSONConverter();
-        //JSONArray results = jsonRoute.getJSONArray("results");
         RouteStep[] route = new RouteStep[jsonRoute.length()];
 
+        System.out.println("------------------------------------------------------\nEXTRACTING STEPS\n------------------------------------------------------\n");
+        System.out.println(jsonRoute);
+        System.out.println("------------------------------------------------------\nEND OF STEPS\n------------------------------------------------------\n");
+
+
         for(int i = 0; i < jsonRoute.length(); i++){
-            JSONArray steps = jsonRoute.getJSONArray(i);
+            JSONArray steps = jsonRoute.optJSONArray(i);
             for(int j = 0; j < steps.length(); j++){
-                JSONObject jsonStep = (JSONObject)steps.get(i);
+                JSONObject jsonStep = (JSONObject)steps.get(j);
                 RouteStep location = converter.jsonToRouteStep(jsonStep);
                 route[i] = location;
             }

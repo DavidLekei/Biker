@@ -59,4 +59,8 @@ public class RouteStep {
         return this.travelMode;
     }
 
+    public String toString(){
+        return this.htmlInstructions;
+    }
+
 }

@@ -13,6 +13,8 @@ import com.biker.ui.MainActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.ProtocolException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -42,7 +44,7 @@ public class BikerTask extends AsyncTask<Object, Integer, Route> {
             Location location = (Location)locationFuture.get();
             System.out.println("*******Location recieved: " + location.toString() + " ***********");
             route = getRoute(location);
-        } catch (ExecutionException | InterruptedException | JSONException e) {
+        } catch (ExecutionException | InterruptedException | JSONException | IOException e) {
             e.printStackTrace();
         }
 
@@ -55,10 +57,17 @@ public class BikerTask extends AsyncTask<Object, Integer, Route> {
         activity.drawRoute(route);
     }
 
-    private Route getRoute(Location location) throws JSONException {
-        Route route = RouteBuilder.buildRoute(bikerAPI.getBasicRoute(location));
-        route.setStartingLocation(location);
-        return route;
+    private Route getRoute(Location location) throws JSONException, IOException {
+            Route route = null;
+            try {
+                route = RouteBuilder.buildRoute(bikerAPI.getBasicRoute(location));
+                route.setStartingLocation(location);
+            }
+            catch(ProtocolException e){
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+            return route;
     }
 
 }

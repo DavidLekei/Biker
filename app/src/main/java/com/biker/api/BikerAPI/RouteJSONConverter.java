@@ -9,7 +9,7 @@ public class RouteJSONConverter {
 
     public RouteJSONConverter(){}
 
-    public RouteStep jsonToRouteStep(JSONObject json) throws JSONException {
+    public RouteStep jsonToRouteStep(JSONObject json) {
         return new RouteStep(getDistance(json),
                              getDuration(json),
                              getEndLocation(json),
@@ -19,38 +19,38 @@ public class RouteJSONConverter {
                              getTravelMode(json));
     }
 
-    private String getDistance(JSONObject json) throws JSONException {
-        return json.getJSONObject("distance").getString("text");
+    private String getDistance(JSONObject json){
+        return json.optJSONObject("distance").optString("text");
     }
 
-    private String getDuration(JSONObject json) throws JSONException {
-        return json.getJSONObject("duration").getString("text");
+    private String getDuration(JSONObject json){
+        return json.optJSONObject("duration").optString("text");
     }
 
-    private LatLng getEndLocation(JSONObject json) throws JSONException {
-        JSONObject endLocation = json.getJSONObject("end_location");
-        double lat = endLocation.getDouble("lat");
-        double lng = endLocation.getDouble("lng");
+    private LatLng getEndLocation(JSONObject json) {
+        JSONObject endLocation = json.optJSONObject("end_location");
+        double lat = endLocation.optDouble("lat");
+        double lng = endLocation.optDouble("lng");
         return new LatLng(lat, lng);
     }
 
-    private String getHTMLInstructions(JSONObject json) throws JSONException {
-        return json.getString("html_instructions");
+    private String getHTMLInstructions(JSONObject json) {
+        return json.optString("html_instructions");
     }
 
-    private String getPolyline(JSONObject json) throws JSONException {
-        return json.getJSONObject("polyline").getString("points");
+    private String getPolyline(JSONObject json) {
+        return json.optJSONObject("polyline").optString("points");
     }
 
-    private LatLng getStartLocation(JSONObject json) throws JSONException {
-        JSONObject startLocation = json.getJSONObject("start_location");
-        double lat = startLocation.getDouble("lat");
-        double lng = startLocation.getDouble("lng");
+    private LatLng getStartLocation(JSONObject json) {
+        JSONObject startLocation = json.optJSONObject("start_location");
+        double lat = startLocation.optDouble("lat");
+        double lng = startLocation.optDouble("lng");
         return new LatLng(lat, lng);
     }
 
-    private String getTravelMode(JSONObject json) throws JSONException {
-        return json.getString("travel_mode");
+    private String getTravelMode(JSONObject json) {
+        return json.optString("travel_mode");
     }
 }
 
