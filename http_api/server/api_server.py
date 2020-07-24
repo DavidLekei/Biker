@@ -4,6 +4,7 @@ from flask_api import status
 from datetime import datetime
 import pprint
 import ast
+import logging
 
 
 from biker_api import biker_api
@@ -29,6 +30,8 @@ def get_directions():
 	end_lat = request.args.get('end_lat')
 	end_lng = request.args.get('end_lng')
 
+	logging.info('Request with parameters:\n\t start_lat: %s\n\tstart_lng: %s\n\tend_lat: %s\n\tend_lng: %s', start_lat, start_lng, end_lat, end_lng)
+
 	biker = biker_api()
 	directions = biker.get_directions((start_lat, start_lng), (end_lat, end_lng))
 
@@ -40,21 +43,26 @@ def get_nearby_places():
 	longitude = request.args.get('longitude')
 
 	if(latitude == None or longitude == None):
+		logging.warning('Request was missing Latitude or Longitude Parameter')
 		return "ERROR: Missing Latitude/Longitude Parameter", status.HTTP_400_BAD_REQUEST
 	else:
 		biker = biker_api()
 		nearby_places = biker.get_nearby_locations(latitude, longitude)
 		return jsonify(nearby_places), status.HTTP_200_OK
 
+"""
+***********This Route is Currently Not In Use******************
+"""
 @api_server.route("/getBasicRoute", methods=['GET'])
 def get_basic_route():
 	latitude = request.args.get('latitude')
 	longitude = request.args.get('longitude')
 
 	if(latitude == None or longitude == None):
+		logging.warning('Request was missing Latitude or Longitude Parameter')
 		return "ERROR: Missing Latitude/Longitude Parameter", status.HTTP_400_BAD_REQUEST
 	else:
-		print('Recieved request with Latitude: ' + latitude + ' / Longitude : ' + longitude)
+		logging.info('Request Recieved with \n\tLatitude: %s\n\tLongitude: %s', latitude, longitude)
 		biker = biker_api()
 		route = biker.build_route(latitude, longitude)
 
@@ -86,6 +94,14 @@ def get_nearby_places_test():
 	response = jsonify(data)
 	return response, status.HTTP_200_OK
 
+@api_server.route("/test")
+def test():
+	date = request.date
+	origin = request.origin
+
+	print('Date: ', date, '\nOrigin: ', origin)
+
+	return 'OK', status.HTTP_200_OK
 
 
 """
@@ -94,11 +110,12 @@ UTILITY METHODS
 
 """
 def print_response_info(response):
-	print('Response Length: ', response.headers.get('Content-Length', type=int))
-	print('Response Type/Charset: ', response.headers.get('Content-Type', type=str))
-	print('Response Encoding: ', response.headers.get('Content-Encoding', type=str))
-	print('Response Charset: ', response.charset)
+	logging.info('Response Length: %s', response.headers.get('Content-Length', type=int))
+	logging.info('Response Type/Charset: %s', response.headers.get('Content-Type', type=str))
+	logging.info('Response Encoding: %s', response.headers.get('Content-Encoding', type=str))
+	logging.info('Response Charset: %s', response.charset)
 
 
 if __name__ == "__main__":
+	logging.basicConfig(filename='api_server.log', level=logging.DEBUG)
 	api_server.run()

@@ -30,11 +30,13 @@ class server_test:
 		directions = json.loads(response.text)
 		self.printer.pprint(directions)
 
+	def test(self):
+		response = requests.get('http://localhost:5000/test')
+		print(response.text)
 
 
 if __name__ == "__main__":
 	print('Running Server Tests')
 	test = server_test()
-	#test.test_get_nearby_places()
-	#test.testGetBasicRoute()
+	test.test_get_nearby_places()
 	test.test_get_directions()

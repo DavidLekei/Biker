@@ -1,6 +1,7 @@
 from flask import jsonify
 import json
 import googlemaps
+import logging
 
 #imports for testing
 import pprint
@@ -26,23 +27,17 @@ class biker_api:
 		distance = 5000 # meters (5km)
 		place_type = 'tourist_attraction'
 
-		#places_nearby() returns a dict of info
+		logging.info('Sending Google Places API Request.')
 		places = self.maps.places_nearby(location={'latitude': latitude, 'longitude':longitude},
 									radius=distance,
 									type=place_type)
-
+		logging.info('Recieved Places.')
 		locations = self._build_locations(places)
-		for loc in locations:
-			print(loc, '\n\n\n')
-
-
-		#TODO: If places_nearby returns a next_page_token, call places_nearby() again to build a full list of places.
 
 		return locations
 
 	def _build_locations(self, places):
-		print('Building Location Dict')
-
+		logging.info('Building Locations...')
 		list_of_locations = []
 
 		results = places['results']
@@ -67,22 +62,17 @@ class biker_api:
 			#Add new Dictionary to Array of Dict's
 			list_of_locations.append(location)
 
+		logging.info('Successfully List of %s Locations.', len(list_of_locations))
 		return list_of_locations
 
 	def get_directions(self, starting_location, ending_location):
-
-		print('-------------------------------------------------------')
-		# start_lat = starting_location[0]
-		# start_lng = starting_location[1]
-
-		# dest_lat = ending_location[0]
-		# dest_lng = ending_location[1]
-
+		logging.info('Sending Google API Request')
 		directions = self.maps.directions(origin=starting_location,
 										   destination=ending_location,
 										   mode='bicycling')
-
+		logging.info('Recieved Directions from Google.\nExtracting Steps...')
 		route = self.extract_steps(directions)
+		logging.info('Successfully Extracted Steps.\nReturning Route')
 		return route
 
 	def extract_steps(self, directions):
