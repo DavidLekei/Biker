@@ -24,6 +24,15 @@ Google API's were used for Maps/Locations/Directions/Geolocation/etc
 
 ## Screenshots
 
+### Launching the app, it will find your current location and use that as a starting point
+
+![](https://i.imgur.com/XbS0Lbv.jpg)
+
+### Pressing the 'Create Button' will map out a route to nearby interesting locations!
+
+### (NOTE: This image is a Proof of Concept - the final Route would not be this convoluted and repetitive)
+
+![](https://i.imgur.com/MEnJEjt.jpg)
 
 ## Author
 
