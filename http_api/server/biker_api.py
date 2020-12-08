@@ -2,6 +2,7 @@ from flask import jsonify
 import json
 import googlemaps
 import logging
+import os
 
 #imports for testing
 import pprint
@@ -9,9 +10,8 @@ import pprint
 class biker_api:
 
 
-	#TODO: DO NOT HARDCODE KEY!!!!
 	def __init__(self):
-		self.key = 'AIzaSyA0a_wiiuucep3IHoieb3xyr8ZLTKGHh7E'
+		self.key = os.environ['BIKER_API_KEY']
 		self.maps = googlemaps.Client(key=self.key);
 		self.pprinter = pprint.PrettyPrinter(indent=2)
 
